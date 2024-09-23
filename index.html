@@ -13,12 +13,17 @@
             <h1>Add Task</h1>
             <div class="input-container">
                 <div class="dropdown">
-                    <button class="link">Icon</button>
+                    <button class="link"><i id="selected-icon" class="fas fa-tasks"></i></button>
                     <div class="dropdown-menu">
-                        Dropdown Content
+                        <i class="fas fa-home" data-icon="fa-home"></i>
+                        <i class="fas fa-shopping-cart" data-icon="fa-shopping-cart"></i>
+                        <i class="fas fa-book" data-icon="fa-book"></i>
+                        <i class="fas fa-briefcase" data-icon="fa-briefcase"></i>
+                        <i class="fas fa-plane" data-icon="fa-plane"></i>
                     </div>
                 </div>
-                <input type="text" id="input-box" placeholder="Add your text">
+                <input type="text" id="input-box" placeholder="Add your task">
+                <input type="date" id="due-date">
                 <button onclick="addTodo()">Add</button>
             </div>
             <div class="columns">
