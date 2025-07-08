@@ -2,47 +2,149 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>To-Do List App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y.S | Task Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="todo-app">
-            <h1>Add Task</h1>
-            <div class="input-container">
-                <div class="dropdown">
-                    <button class="link"><i id="selected-icon" class="fas fa-tasks"></i></button>
-                    <div class="dropdown-menu">
-                        <i class="fas fa-home" data-icon="fa-home"></i>
-                        <i class="fas fa-shopping-cart" data-icon="fa-shopping-cart"></i>
-                        <i class="fas fa-book" data-icon="fa-book"></i>
-                        <i class="fas fa-briefcase" data-icon="fa-briefcase"></i>
-                        <i class="fas fa-plane" data-icon="fa-plane"></i>
+    <div class="modal-overlay" id="modal-overlay"></div>
+    
+    <nav class="floating-nav">
+        <a href="https://yousof.github.io" target="_blank" class="nav-link">
+            <div class="logo-text-container">
+                <span class="logo-initials">Y.S</span>
+                <span class="logo-full-name">Yousof Selim</span>
+            </div>
+        </a>
+    </nav>
+    
+    <main class="kanban-board-wrapper">
+        <div class="kanban-board" id="kanban-board"></div>
+        <button class="add-list-btn" id="add-list-btn">
+            <i class="fas fa-plus"></i> Add another list
+        </button>
+    </main>
+    
+    <div class="tag-modal" id="tag-modal">
+        <div class="tag-modal-content">
+            <div class="tag-modal-header">
+                <h3>Manage Tags</h3>
+                <button class="close-tag-modal" id="close-tag-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="tag-creation">
+                <input type="text" id="new-tag-name" placeholder="Tag name...">
+                <input type="color" id="new-tag-color" value="#e5a767">
+                <button id="add-tag-btn">Add Tag</button>
+            </div>
+            <div class="existing-tags" id="existing-tags"></div>
+        </div>
+    </div>
+    
+    <div class="fab-container">
+        <div class="input-modal" id="input-modal">
+            <div class="modal-header">
+                <h3>Add New Task</h3>
+                <button class="close-modal-btn" id="close-modal-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="input-group">
+                <input type="text" id="input-box" placeholder="Enter task name..." required>
+            </div>
+            
+            <div class="input-options-grid">
+                <div class="category-selector">
+                    <label>Category</label>
+                    <div class="category-dropdown" id="category-dropdown">
+                        <div class="selected-category" id="selected-category">
+                            <i class="fas fa-tasks" id="selected-icon"></i>
+                            <span id="selected-text">General</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="category-options" id="category-options">
+                            <div class="category-option" data-icon="fa-tasks" data-name="General" data-color="#e5a767">
+                                <i class="fas fa-tasks"></i>
+                                <span>General</span>
+                            </div>
+                            <div class="category-option" data-icon="fa-home" data-name="Home" data-color="#4ade80">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </div>
+                            <div class="category-option" data-icon="fa-briefcase" data-name="Work" data-color="#3b82f6">
+                                <i class="fas fa-briefcase"></i>
+                                <span>Work</span>
+                            </div>
+                            <div class="category-option" data-icon="fa-shopping-cart" data-name="Shopping" data-color="#f59e0b">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Shopping</span>
+                            </div>
+                            <div class="category-option" data-icon="fa-book" data-name="Study" data-color="#8b5cf6">
+                                <i class="fas fa-book"></i>
+                                <span>Study</span>
+                            </div>
+                            <div class="category-option" data-icon="fa-heart" data-name="Health" data-color="#ef4444">
+                                <i class="fas fa-heart"></i>
+                                <span>Health</span>
+                            </div>
+                            <div class="category-option" data-icon="fa-dumbbell" data-name="Fitness" data-color="#10b981">
+                                <i class="fas fa-dumbbell"></i>
+                                <span>Fitness</span>
+                            </div>
+                            <div class="category-option" data-icon="fa-dollar-sign" data-name="Finance" data-color="#059669">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>Finance</span>
+                            </div>
+                            <div class="category-option" data-icon="fa-lightbulb" data-name="Ideas" data-color="#fbbf24">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Ideas</span>
+                            </div>
+                            <div class="category-option" data-icon="fa-plane" data-name="Travel" data-color="#06b6d4">
+                                <i class="fas fa-plane"></i>
+                                <span>Travel</span>
+                            </div>
+                            <div class="category-option" data-icon="none" data-name="No Category" data-color="#6b7280">
+                                <i class="fas fa-ban"></i>
+                                <span>No Category</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <input type="text" id="input-box" placeholder="Add your task">
-                <input type="date" id="due-date">
-                <button onclick="addTodo()">+</button>
-            </div>
-            <div class="columns">
-                <div class="column" id="in-progress-column">
-                    <h3>In Progress</h3>
-                    <ul id="in-progress-list"></ul>
+                
+                <div class="input-field">
+                    <input type="date" id="due-date">
+                    <label for="due-date">Due Date</label>
                 </div>
-                <div class="column" id="completed-column">
-                    <h3>Completed</h3>
-                    <ul id="completed-list"></ul>
+                
+                <div class="input-field">
+                    <select id="priority-select">
+                        <option value="" disabled selected></option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <label for="priority-select">Priority</label>
                 </div>
             </div>
+            
+            <button id="add-task-submit-btn" class="submit-btn">
+                <i class="fas fa-plus"></i>
+                Add Task
+            </button>
         </div>
-        <footer class="social-icons">
-            <a href="https://github.com/yeegz"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/yousof-selim-57b5a927a/"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/@Yousof_Selim"><i class="fab fa-youtube"></i></a>
-        </footer>
+        
+        <button class="fab" id="fab">
+            <i class="fas fa-plus"></i>
+        </button>
     </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
